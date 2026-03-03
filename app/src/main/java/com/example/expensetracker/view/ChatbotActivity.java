@@ -29,7 +29,7 @@ public class ChatbotActivity extends AppCompatActivity {
     private Button btnSend;
     private FinanceController financeController;
     //API
-    private static final String API_KEY = "AIzaSyDmTcT-xrp6TgOuO4ef5WPE-X7HvhczdHM";
+    private static final String API_KEY = "";
     private static final String API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent?key=" + API_KEY;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
