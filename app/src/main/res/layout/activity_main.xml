@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="#F4F7FC"
+    android:animateLayoutChanges="true">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardBalance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="8dp"
+        app:cardBackgroundColor="@android:color/white">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="24dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Số dư quỹ hiện tại"
+                android:textSize="16sp"
+                android:textColor="#888888"
+                android:textAllCaps="true"
+                android:textStyle="bold"
+                android:letterSpacing="0.05"/>
+
+            <TextView
+                android:id="@+id/tvBalance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0 VNĐ"
+                android:textSize="36sp"
+                android:textStyle="bold"
+                android:textColor="#2E7D32"
+                android:layout_marginTop="8dp"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/pieChart"
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Lịch sử giao dịch gần đây"
+        android:textStyle="bold"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="16dp"
+        android:textColor="#555555"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvTransactions"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="10dp"
+        android:clipToPadding="false"
+        android:paddingBottom="20dp"
+        android:layoutAnimation="@anim/layout_anim_fall_down" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnAddTransaction"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="+ Thêm Giao Dịch / Nạp Quỹ"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:cornerRadius="16dp"
+        app:backgroundTint="#2196F3"
+        app:elevation="4dp"
+        android:layout_marginBottom="10dp"/>
+
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/rvTransactions"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:layout_weight="1"-->
+<!--        android:clipToPadding="false"-->
+<!--        android:paddingBottom="10dp"/>-->
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnChatbot"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="🤖 Hỏi Trợ Lý AI"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:cornerRadius="16dp"
+        app:backgroundTint="#9C27B0"
+        app:elevation="4dp"
+        android:layout_marginTop="5dp"/>
+    <Button
+        android:id="@+id/btnViewHistory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Xem lịch sử"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="16dp"
+        android:layout_gravity="center_horizontal"/>
+
+</LinearLayout>
