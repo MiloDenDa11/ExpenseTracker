@@ -8,40 +8,38 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.expensetracker.R;
 import com.example.expensetracker.adapter.TransactionAdapter;
+import com.example.expensetracker.model.DatabaseHelper;
 import com.example.expensetracker.model.Transaction;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class HistoryActivity extends AppCompatActivity {
+
+    private DatabaseHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
 
-        // Toolbar
+        dbHelper = new DatabaseHelper(this);
+
         Toolbar toolbar = findViewById(R.id.toolbarHistory);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            toolbar.setNavigationOnClickListener(v -> finish()); // Quay lại khi bấm nút Back
+            toolbar.setNavigationOnClickListener(v -> finish());
         }
 
-        // RecyclerView và Adapter
         RecyclerView rvTransactions = findViewById(R.id.rvTransactions);
         rvTransactions.setLayoutManager(new LinearLayoutManager(this));
 
-        // 3. Tạo dữ liệu giả lập
-        List<Transaction> mockData = new ArrayList<>();
-        mockData.add(new Transaction(1, 100000, "INCOME", "Nạp tiền từ MoMo", System.currentTimeMillis() - 10000, "Nạp quỹ"));
-        mockData.add(new Transaction(2, 50000, "EXPENSE", "Ăn sáng", System.currentTimeMillis() - 200000, "Uống cafe"));
-        mockData.add(new Transaction(3, 2000000, "INCOME", "Lương tháng 03", System.currentTimeMillis() - 1000000, "Lương"));
-        mockData.add(new Transaction(mockData.size(), 80000, "EXPENSE", "Hóa đơn điện", System.currentTimeMillis() - 5000000, "Điện lực"));
-        mockData.add(new Transaction(mockData.size(), mockData.size() * 10000, "EXPENSE", "Mua sắm", System.currentTimeMillis() - 200000, "Uống cafe"));
-
-        TransactionAdapter adapter = new TransactionAdapter(mockData);
-        rvTransactions.setAdapter(adapter);
-        rvTransactions.scheduleLayoutAnimation();
+        List<Transaction> realData = dbHelper.getAllTransactions();
+        if (realData != null && !realData.isEmpty()) {
+            TransactionAdapter adapter = new TransactionAdapter(realData);
+            rvTransactions.setAdapter(adapter);
+            rvTransactions.scheduleLayoutAnimation();
+        } else {
+        }
     }
 }

@@ -60,6 +60,10 @@
         <activity
             android:name=".src.HistoryActivity"
             android:exported="false" />
+        <activity
+            android:name=".view.AddCategoryActivity"
+            android:exported="false"
+            tools:ignore="Instantiatable" />
 
 
 

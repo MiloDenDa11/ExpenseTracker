@@ -55,12 +55,17 @@ public class MainActivity extends AppCompatActivity {
         rvTransactions = findViewById(R.id.rvTransactions);
         rvTransactions.setLayoutManager(new LinearLayoutManager(this));
 
-
-        Button btnChatbot = findViewById(R.id.btnChatbot);
-        btnChatbot.setOnClickListener(view -> {
-            android.content.Intent intent = new android.content.Intent(MainActivity.this, com.example.expensetracker.view.ChatbotActivity.class);
+        Button btnAddCategory = findViewById(R.id.btnAddCategory);
+        btnAddCategory.setOnClickListener(viewCt -> {
+            android.content.Intent intent = new android.content.Intent(MainActivity.this, AddCategoryActivity.class);
             startActivity(intent);
         });
+
+//        Button btnChatbot = findViewById(R.id.btnChatbot);
+//        btnChatbot.setOnClickListener(view -> {
+//            android.content.Intent intent = new android.content.Intent(MainActivity.this, com.example.expensetracker.view.ChatbotActivity.class);
+//            startActivity(intent);
+//        });
         //  Controller
         financeController = new FinanceController(this);
 

@@ -23,26 +23,54 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_TIMESTAMP = "timestamp";
     private static final String COLUMN_NOTE = "note";
 
+    private static final String TABLE_CATEGORIES = "categories";
+    private static final String COLUMN_CAT_ID = "id";
+    private static final String COLUMN_CAT_NAME = "name";
+    private static final String COLUMN_CAT_TYPE = "type";
+    private static final String COLUMN_CAT_ICON = "icon_res_id"; // Lưu ID của hình ảnh
+
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createTableQuery = "CREATE TABLE " + TABLE_TRANSACTIONS + " (" +
-                COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                COLUMN_AMOUNT + " REAL, " +
-                COLUMN_TYPE + " TEXT, " +
-                COLUMN_CATEGORY + " TEXT, " +
-                COLUMN_TIMESTAMP + " INTEGER, " +
-                COLUMN_NOTE + " TEXT)";
-        db.execSQL(createTableQuery);
+        // 1. Lệnh tạo bảng thứ nhất: transactions (Giao dịch)
+        String createTransactionTable = "CREATE TABLE transactions (" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "amount REAL, " +
+                "type TEXT, " +
+                "category TEXT, " +
+                "timestamp INTEGER, " +
+                "note TEXT)";
+        // Thực thi tạo bảng 1
+        db.execSQL(createTransactionTable);
+
+        // 2. Lệnh tạo bảng thứ hai: categories (Danh mục)
+        String createCategoryTable = "CREATE TABLE categories (" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "name TEXT, " +
+                "type TEXT, " +
+                "icon_res_id INTEGER)";
+        // Thực thi tạo bảng 2
+        db.execSQL(createCategoryTable);
+
     }
+
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_TRANSACTIONS);
-        onCreate(db);
+        if (oldVersion < 2) {
+
+            String createCategoryTable = "CREATE TABLE " + TABLE_CATEGORIES + " (" +
+                    COLUMN_CAT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    COLUMN_CAT_NAME + " TEXT, " +
+                    COLUMN_CAT_TYPE + " TEXT, " +
+                    COLUMN_CAT_ICON + " INTEGER)";
+
+            db.execSQL(createCategoryTable);
+        }
+
     }
 
     // Thêm một giao dịch mới
@@ -104,5 +132,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         cursor.close();
         return list;
+    }
+    public long insertCategory(String name, String type, int iconResId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        android.content.ContentValues values = new android.content.ContentValues();
+        values.put(COLUMN_CAT_NAME, name);
+        values.put(COLUMN_CAT_TYPE, type);
+        values.put(COLUMN_CAT_ICON, iconResId);
+        long id = db.insert(TABLE_CATEGORIES, null, values);
+        db.close();
+        return id;
     }
 }
